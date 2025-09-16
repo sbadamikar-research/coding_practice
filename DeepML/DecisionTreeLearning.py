@@ -22,12 +22,9 @@ def compute_information_gain(df: pd.DataFrame, splitting_attr: str, target_attr:
 def learn_decision_tree(examples: list[dict], attributes: list[str], target_attr: str) -> dict:
  
     df = pd.DataFrame(examples)
-    print(df.head())
-    print(attributes)
     
     # If all the values in the target are the same, that is the answer
     if(df[target_attr].value_counts().size == 1):
-        print("Leaf: ", df[target_attr].values[0])
         return df[target_attr].values[0]
     
     # Guaranteed leaf node because no more attributes to split, return mode
@@ -40,7 +37,6 @@ def learn_decision_tree(examples: list[dict], attributes: list[str], target_attr
     best_subsets = dict()
     for attr in attributes:
         IG_attr, subsets = compute_information_gain(df, attr, target_attr, data_entropy)
-        print(subsets)
         if(IG_attr > max_gain):
             max_gain = IG_attr
             best_attr = attr
@@ -50,7 +46,6 @@ def learn_decision_tree(examples: list[dict], attributes: list[str], target_attr
     
     new_attr = [a for a in attributes if a != best_attr]
     for val in best_subsets.keys():
-        print("- ", best_subsets[val])
         subtree_root_node[best_attr][val] = learn_decision_tree(best_subsets[val].to_dict('records'), new_attr, target_attr)
         
     return subtree_root_node
