@@ -3,7 +3,6 @@ import math
 
 def svd_2x2_singular_values(A: np.ndarray) -> tuple:
     
-    
     eigenvals, eigenvecs = np.linalg.eig(A.transpose() @ A)
     v2V = dict(zip(eigenvals, np.array(eigenvecs.transpose())))
     v2V = dict(sorted(v2V.items(), reverse=True))
