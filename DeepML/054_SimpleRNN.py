@@ -11,7 +11,7 @@ def rnn_forward(input_sequence: list[list[float]], initial_hidden_state: list[fl
         X = np.array(X_t).T
         final_hidden_state = np.tanh((X @ W_x) + (final_hidden_state @ W_h) + bias)
         
-    return final_hidden_state
+    return np.round(final_hidden_state, decimals=4)
 
 ### TESTING
 
